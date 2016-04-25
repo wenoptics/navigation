@@ -65,15 +65,25 @@ public class LoginActivityPresenter {
 
                     NaviApplication.get(loginActivity.getApplicationContext())
                             .createUserComponent(new UserModule(naviUser));
-                    Toast.makeText(loginActivity,"register success",Toast.LENGTH_SHORT).show();
+                    loginActivity.snakeBarMsg("注册成功");
+//                    Toast.makeText(loginActivity,"register success",Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(int i, String s) {
-                    Toast.makeText(loginActivity,"register failure",Toast.LENGTH_SHORT).show();
+                    loginActivity.snakeBarMsg("注册失败");
+//                    Toast.makeText(loginActivity,"register failure",Toast.LENGTH_SHORT).show();
                 }
             });
+        }else {
+
+                loginActivity.snakeBarMsg("请输入正确的注册信息");
+//            Snackbar
+//            .make(parentLayout, R.string.snackbar_error_register_text, Snackbar.LENGTH_LONG)
+//                    .setAction(R.string.snackbar_register_action, myOnClickListener)
+//                    .show();
         }
+
     }
 
 }

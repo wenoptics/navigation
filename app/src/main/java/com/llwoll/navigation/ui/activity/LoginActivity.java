@@ -2,7 +2,9 @@ package com.llwoll.navigation.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -112,6 +114,19 @@ public class LoginActivity extends BaseActivity {
     public void intentMap(){
         Intent intent = new Intent(LoginActivity.this,MapActivity.class);
         startActivity(intent);
+    }
+
+    public void snakeBarMsg(String msg){
+
+        ViewGroup viewGroup = (ViewGroup) this.register.getRootView();
+        Snackbar.make(viewGroup,msg,Snackbar.LENGTH_LONG)
+                .setAction(R.string.snackbar_register_action, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .show();
     }
 
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="divider">#B6B6B6</color>
+    <color name="province_line_border">#C7C7C7</color>
+    <color name="text_gray">#969696</color>
+
+
+    <color name="ultra_dark">#29303F</color>
+    <color name="dark">#696E79</color>
+    <color name="ultra_dark_overlay">#0D29303F</color>
+
+
+    <color name="primary">#03A9F4</color>
+    <color name="primary_dark">#0288D1</color>
+    <color name="primary_light">#B3E5FC</color>
+    <color name="accent">#FF5722</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#ffffff</color>
+
+
+    <color name="common_bg">#fcfcfc</color>
+    <color name="primary_peopleDetail">#009688</color>
+    <color name="primary_dark_peopleDetail">#00796b</color>
+    <color name="accent_peopleDetail">#ffc107</color>
+
+
+    <color name="base_color_text_gray">#9fa0a0</color>
+</resources>

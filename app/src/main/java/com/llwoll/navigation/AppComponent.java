@@ -6,6 +6,8 @@ import com.llwoll.navigation.data.UserComponent;
 import com.llwoll.navigation.data.api.UserModule;
 import com.llwoll.navigation.ui.activity.compnent.LoginActivityComponent;
 import com.llwoll.navigation.ui.activity.module.LoginActivityModule;
+import com.llwoll.navigation.ui.fragment.component.SetFragmentComponent;
+import com.llwoll.navigation.ui.fragment.module.SetFragmentModule;
 
 import javax.inject.Singleton;
 
@@ -27,4 +29,6 @@ public interface AppComponent {
     UserComponent plus(UserModule userModule);
 
     LoginActivityComponent plus(LoginActivityModule loginActivityModule);
+    SetFragmentComponent plus(SetFragmentModule setFragmentModule);
+
 }

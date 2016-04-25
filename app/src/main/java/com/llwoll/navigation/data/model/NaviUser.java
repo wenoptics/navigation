@@ -9,5 +9,4 @@ public class NaviUser extends BmobUser {
 
 
 
-
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/text"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+
+        android:text="@string/set_path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/start"
+        android:layout_below="@+id/text"
+        android:hint="@string/start_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--android:visibility="gone"
+            android:layout_centerHorizontal="true"
+    -->
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/base_color_text_gray"
+        android:layout_below="@id/start"
+
+        android:id="@+id/middle_points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+    <Button
+        android:layout_below="@+id/middle_points"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:id="@+id/addMiddle"
+        android:hint="@string/add_middle_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <EditText
+        android:layout_below="@+id/addMiddle"
+
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        android:id="@+id/destination"
+        android:hint="@string/detination_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/destination"
+        android:id="@+id/history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+</RelativeLayout>
