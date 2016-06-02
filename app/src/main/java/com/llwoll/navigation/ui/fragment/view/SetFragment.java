@@ -156,15 +156,19 @@ public class SetFragment extends Fragment  implements SetViewInterface {
     @Override
     public void setStartPoint(LocationMob startPoint) {
         //设置第一个点
+
+        if (startPoint == null )return;
         startMob = startPoint;
-        start.setText(startPoint.getAddress());
+//        startPoint.getProvince() + ","+startPoint.getCity()+
+        start.setText(startPoint.getProvince()+","+startPoint.getAddress());
     }
 
     @Override
     public void setDetinationPoint(LocationMob detinationPoint) {
         //设置目的点
+        if (detinationPoint == null) return;
         detinationMob = detinationPoint;
-        detination.setText(detinationPoint.getAddress());
+        detination.setText(detinationPoint.getCity()+","+detinationPoint.getAddress());
     }
 
 

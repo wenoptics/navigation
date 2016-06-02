@@ -99,7 +99,7 @@ public class SetPresenter implements SetPresenterInterface, SelectAddressDialog.
     @Override
     public void onGetResult(String province, String city, String district, String detailAddress, LatLng nowLatLng) {
 
-        LocationMob locationMob = new LocationMob(province,city,district,city,nowLatLng);
+        LocationMob locationMob = new LocationMob(province,city,district,detailAddress,nowLatLng);
         switch (pointEnum){
             case START:
                 setViewInterface.setStartPoint(locationMob);

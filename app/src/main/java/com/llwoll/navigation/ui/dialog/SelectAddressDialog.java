@@ -224,9 +224,7 @@ public class SelectAddressDialog extends Dialog implements View.OnClickListener,
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (s.length() <= 0) {
-                    return;
+                if (s.length() <= 0) {return;
                 }
 
                 //获取城市
@@ -322,6 +320,8 @@ public class SelectAddressDialog extends Dialog implements View.OnClickListener,
         } else if (wheel == mViewCity) {
             updateAreas();
         } else if (wheel == mViewDistrict) {
+            if (mDistrictDatasMap.get(mCurrentCityName) == null) return;
+
             mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
             mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
         }

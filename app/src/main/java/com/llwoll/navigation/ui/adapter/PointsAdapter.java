@@ -40,7 +40,9 @@ public class PointsAdapter extends  RecyclerView.Adapter<PointsAdapter.NormalLis
 
     @Override
     public void onBindViewHolder(NormalListViewHolder holder, int position) {
-        holder.address.setText(locationMobs.get(position).getAddress());
+        LocationMob locationMob =  locationMobs.get(position);
+//        locationMob.getProvince()+","+locationMob.getCity()+","+
+        holder.address.setText(locationMob.getCity()+","+locationMob.getAddress());
     }
 
 
