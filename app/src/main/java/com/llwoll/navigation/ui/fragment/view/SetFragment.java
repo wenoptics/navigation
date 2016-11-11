@@ -11,9 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.borax12.materialdaterangepicker.date.DatePickerDialog;
+import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
+import com.borax12.materialdaterangepicker.time.TimePickerDialog;
+import com.llwoll.navigation.MainActivity;
 import com.llwoll.navigation.NaviApplication;
 import com.llwoll.navigation.R;
 import com.llwoll.navigation.data.model.LocationMob;
@@ -22,6 +27,7 @@ import com.llwoll.navigation.ui.fragment.module.SetFragmentModule;
 import com.llwoll.navigation.ui.fragment.presenter.SetPresenter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,9 +38,13 @@ import butterknife.OnClick;
 
 
 /**
+ * 负责采集路线的Fragment
+ *
  * Created by zysd on 16/3/30.
  */
-public class SetFragment extends Fragment  implements SetViewInterface {
+public class SetFragment extends Fragment  implements SetViewInterface,
+         DatePickerDialog.OnDateSetListener,
+         TimePickerDialog.OnTimeSetListener{
 
 
 
@@ -67,7 +77,8 @@ public class SetFragment extends Fragment  implements SetViewInterface {
     LocationMob detinationMob = null;
     List<LocationMob> middleMob = new ArrayList<>();
 
-
+    DatePickerDialog datePickerDialog = null;
+    TimePickerDialog timePickerDialog = null;
 
     @Nullable
     @Override
@@ -94,7 +105,21 @@ public class SetFragment extends Fragment  implements SetViewInterface {
         history.setLayoutManager(new LinearLayoutManager(history.getContext()));
         history.setAdapter(historyAdapter);
 
+        initDateTimeDialog();
+
+
         return view;
+    }
+
+    private void initDateTimeDialog(){
+
+        Calendar now = Calendar.getInstance();
+
+
+        DatePicker datePicker = new DatePicker(getContext());
+
+
+
     }
 
     @OnClick(R.id.start)
@@ -206,6 +231,27 @@ public class SetFragment extends Fragment  implements SetViewInterface {
             return null;
         }
         return path;
+    }
+
+    @Override
+    public void showDateDialog() {
+
+
+    }
+
+    @Override
+    public void showTimeDialog() {
+
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
+
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
+
     }
 
 }

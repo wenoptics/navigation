@@ -1,13 +1,20 @@
 package com.llwoll.navigation.ui.fragment.presenter;
 
+
 import android.content.Context;
 
 import com.baidu.mapapi.model.LatLng;
+import com.borax12.materialdaterangepicker.date.DatePickerDialog;
+import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
+import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 import com.llwoll.navigation.data.PointEnum;
 import com.llwoll.navigation.data.model.LocationMob;
+import com.llwoll.navigation.data.model.ProjectModule;
+import com.llwoll.navigation.ui.dialog.ProjectSelectDialog;
 import com.llwoll.navigation.ui.dialog.SelectAddressDialog;
 import com.llwoll.navigation.ui.fragment.view.SetViewInterface;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -18,17 +25,33 @@ import java.util.List;
 /*
     设置路径页面的presenter,包含业务逻辑等等;
  */
-public class SetPresenter implements SetPresenterInterface, SelectAddressDialog.OnGetAddressResult {
+public class SetPresenter implements SetPresenterInterface
+        , SelectAddressDialog.OnGetAddressResult
+        ,ProjectSelectDialog.OnGetProject
+        {
 
     private SetViewInterface setViewInterface;
     private PointEnum pointEnum = null;
     SelectAddressDialog selectAddressDialog;
+    ProjectSelectDialog projectSelectDialog;
+
+    LocationMob locationMob = null;
 
 
     public SetPresenter(SetViewInterface setViewInterface){
         this.setViewInterface = setViewInterface;
         Context  context = setViewInterface.getContext();
         selectAddressDialog = new SelectAddressDialog(context,this);
+        projectSelectDialog = new ProjectSelectDialog(context,this);
+
+        Calendar now = Calendar.getInstance();
+        TimePickerDialog tpd = TimePickerDialog.newInstance(
+                this,
+                now.get(Calendar.HOUR_OF_DAY),
+                now.get(Calendar.MINUTE),
+                false
+        );
+
     }
 
 
@@ -39,16 +62,42 @@ public class SetPresenter implements SetPresenterInterface, SelectAddressDialog.
     public void init(){
 
     }
+            /*
+
+                     得到项目之后才真正的添加节点
+
+              */
+    @Override
+    public void onGetProject(ProjectModule projectModule) {
+
+
+        switch (pointEnum){
+            case START:
+                setViewInterface.setStartPoint(locationMob);
+                break;
+            case DESTINATION:
+                setViewInterface.setDetinationPoint(locationMob);
+                break;
+            case MIDDLE:
+                setViewInterface.addMiddlePoint(locationMob);
+                break;
+        }
+    }
 
     /*
-        设置起点
-      */
+                设置起点
+              */
     @Override
     public void setStartPoint( ) {
 
         if (selectAddressDialog  == null) return;
         pointEnum = PointEnum.START;
+
+        //todo : 添加时间
         selectAddressDialog.show();
+        //todo : 干什么事
+        projectSelectDialog.show();
+
 
     }
 
@@ -68,9 +117,11 @@ public class SetPresenter implements SetPresenterInterface, SelectAddressDialog.
     @Override
     public void addMiddlePoint() {
 
+
         if (selectAddressDialog  == null) return;
         pointEnum = PointEnum.MIDDLE;
         selectAddressDialog.show();
+
 
     }
 
@@ -99,18 +150,11 @@ public class SetPresenter implements SetPresenterInterface, SelectAddressDialog.
     @Override
     public void onGetResult(String province, String city, String district, String detailAddress, LatLng nowLatLng) {
 
-        LocationMob locationMob = new LocationMob(province,city,district,detailAddress,nowLatLng);
-        switch (pointEnum){
-            case START:
-                setViewInterface.setStartPoint(locationMob);
-                break;
-            case DESTINATION:
-                setViewInterface.setDetinationPoint(locationMob);
-                break;
-            case MIDDLE:
-                setViewInterface.addMiddlePoint(locationMob);
-                break;
-        }
-    }
+        locationMob = new LocationMob(province,city,district,detailAddress,nowLatLng);
+        //todo : 得到地点之后去选择项目
+        projectSelectDialog.show();
 
+
+
+    }
 }

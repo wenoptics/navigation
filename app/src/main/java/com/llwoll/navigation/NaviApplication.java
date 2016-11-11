@@ -31,6 +31,10 @@ public class NaviApplication extends Application {
     }
 
     private void initAppComponent(){
+        /*
+            初始化DI 顶级组件
+            启动App Module 将application 注入程序中
+         */
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
@@ -42,14 +46,23 @@ public class NaviApplication extends Application {
     }
 
 
+    /*
+        用户登录之后将 用户信息放在DI 容器中
+     */
     public UserComponent createUserComponent(UserModule userModule){
         userComponent = appComponent.plus(userModule);
         return userComponent;
     }
+    /*
+        释放DI 容器内容
+     */
     public void releaseUserComponent(){
         userComponent = null;
     }
 
+    /*
+
+     */
     public UserComponent getUserComponent(){
         return  userComponent;
     }

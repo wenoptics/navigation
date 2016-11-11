@@ -71,4 +71,7 @@ dependencies {
     compile 'com.android.support:design:22.2.0'
 //    compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
 
+//  时间日期选择框
+    compile 'com.borax12.materialdaterangepicker:library:1.9'
+
 }

@@ -19,5 +19,8 @@ public interface SetViewInterface {
     public void addMiddlePoint(LocationMob middlePoint);
 
     public Context getContext();
-    public void showMsg(String msg);
+
+    public void showDateDialog();
+    public void showTimeDialog();
+
 }

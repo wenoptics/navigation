@@ -28,6 +28,9 @@ public class LoginActivityPresenter {
         this.validator = validator;
     }
 
+    /*
+        登录逻辑
+     */
     public void onLoginClick(){
 
         if (validator.validUsername(username)&& (validator.validUsername(password))){
@@ -52,6 +55,9 @@ public class LoginActivityPresenter {
         }
     }
 
+    /*
+         注册逻辑
+     */
     public void onRegisterClick(){
 
         if (validator.validUsername(username)&& (validator.validUsername(password))){
@@ -63,6 +69,7 @@ public class LoginActivityPresenter {
                 @Override
                 public void onSuccess() {
 
+//                  将用户module 注入到容器里面
                     NaviApplication.get(loginActivity.getApplicationContext())
                             .createUserComponent(new UserModule(naviUser));
                     loginActivity.snakeBarMsg("注册成功");
@@ -77,7 +84,7 @@ public class LoginActivityPresenter {
             });
         }else {
 
-                loginActivity.snakeBarMsg("请输入正确的注册信息");
+            loginActivity.snakeBarMsg("请输入正确的注册信息");
 //            Snackbar
 //            .make(parentLayout, R.string.snackbar_error_register_text, Snackbar.LENGTH_LONG)
 //                    .setAction(R.string.snackbar_register_action, myOnClickListener)

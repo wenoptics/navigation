@@ -39,6 +39,7 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.register)
     Button register;
 
+//    这种注入方式需要手动注入进来,在这里复写setupActivityComponent方法
     @Inject
     LoginActivityPresenter loginActivityPresenter;
     private Subscription textChangeSubscription;
@@ -82,6 +83,10 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    /*
+         初始化Activity
+         将本Activity 注入到容器里面  并利用其初始化Presenter,并放入容器里面, 然后在将容器里面的内容注入到这里
+     */
     @Override
     protected void setupActivityComponent() {
         NaviApplication.get(this)
@@ -90,15 +95,22 @@ public class LoginActivity extends BaseActivity {
                 .inject(this);
     }
 
+    /*
+        将登录逻辑放在presenter 里面实现
+     */
     @OnClick(R.id.login)
     public void OnLoginClick(){
             loginActivityPresenter.onLoginClick();
     }
 
+    /*
+        将注册逻辑放在presenter 里面实现
+     */
     @OnClick(R.id.register)
     public void onRegisterClick(){
             loginActivityPresenter.onRegisterClick();
     }
+
 
     @Override
     protected void onStop() {
@@ -111,11 +123,17 @@ public class LoginActivity extends BaseActivity {
         passwordChangeSub.unsubscribe();
     }
 
+    /*
+        页面跳转逻辑放在这里
+     */
     public void intentMap(){
         Intent intent = new Intent(LoginActivity.this,MapActivity.class);
         startActivity(intent);
     }
 
+    /*
+        弹出提示
+     */
     public void snakeBarMsg(String msg){
 
         ViewGroup viewGroup = (ViewGroup) this.register.getRootView();
