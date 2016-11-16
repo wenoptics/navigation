@@ -4,17 +4,15 @@ package com.llwoll.navigation.ui.fragment.presenter;
 import android.content.Context;
 
 import com.baidu.mapapi.model.LatLng;
-import com.borax12.materialdaterangepicker.date.DatePickerDialog;
-import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
-import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 import com.llwoll.navigation.data.PointEnum;
+import com.llwoll.navigation.data.info.ProjectInfo;
 import com.llwoll.navigation.data.model.LocationMob;
 import com.llwoll.navigation.data.model.ProjectModule;
 import com.llwoll.navigation.ui.dialog.ProjectSelectDialog;
+import com.llwoll.navigation.ui.dialog.ProjectSelectDialog_back;
 import com.llwoll.navigation.ui.dialog.SelectAddressDialog;
 import com.llwoll.navigation.ui.fragment.view.SetViewInterface;
 
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -27,13 +25,13 @@ import java.util.List;
  */
 public class SetPresenter implements SetPresenterInterface
         , SelectAddressDialog.OnGetAddressResult
-        ,ProjectSelectDialog.OnGetProject
-        {
+        ,ProjectSelectDialog_back.OnGetProject, ProjectSelectDialog.OnProjectSelectDone {
 
     private SetViewInterface setViewInterface;
     private PointEnum pointEnum = null;
     SelectAddressDialog selectAddressDialog;
     ProjectSelectDialog projectSelectDialog;
+
 
     LocationMob locationMob = null;
 
@@ -44,13 +42,13 @@ public class SetPresenter implements SetPresenterInterface
         selectAddressDialog = new SelectAddressDialog(context,this);
         projectSelectDialog = new ProjectSelectDialog(context,this);
 
-        Calendar now = Calendar.getInstance();
-        TimePickerDialog tpd = TimePickerDialog.newInstance(
-                this,
-                now.get(Calendar.HOUR_OF_DAY),
-                now.get(Calendar.MINUTE),
-                false
-        );
+//        Calendar now = Calendar.getInstance();
+//        TimePickerDialog tpd = TimePickerDialog.newInstance(
+//                this,
+//                now.get(Calendar.HOUR_OF_DAY),
+//                now.get(Calendar.MINUTE),
+//                false
+//        );
 
     }
 
@@ -82,6 +80,7 @@ public class SetPresenter implements SetPresenterInterface
                 setViewInterface.addMiddlePoint(locationMob);
                 break;
         }
+
     }
 
     /*
@@ -90,11 +89,11 @@ public class SetPresenter implements SetPresenterInterface
     @Override
     public void setStartPoint( ) {
 
-        if (selectAddressDialog  == null) return;
+        if (projectSelectDialog  == null) return;
         pointEnum = PointEnum.START;
 
         //todo : 添加时间
-        selectAddressDialog.show();
+//        selectAddressDialog.show();
         //todo : 干什么事
         projectSelectDialog.show();
 
@@ -107,10 +106,12 @@ public class SetPresenter implements SetPresenterInterface
     @Override
     public void setDestionPoint() {
 
-        if (selectAddressDialog  == null) return;
+        if (projectSelectDialog  == null) return;
         pointEnum = PointEnum.DESTINATION;
-        selectAddressDialog.show();
+//        selectAddressDialog.show();
+        projectSelectDialog.show();
     }
+
     /*
         添加中间点
      */
@@ -118,10 +119,10 @@ public class SetPresenter implements SetPresenterInterface
     public void addMiddlePoint() {
 
 
-        if (selectAddressDialog  == null) return;
+        if (projectSelectDialog  == null) return;
         pointEnum = PointEnum.MIDDLE;
-        selectAddressDialog.show();
-
+//        selectAddressDialog.show();
+        projectSelectDialog.show();
 
     }
 
@@ -150,11 +151,28 @@ public class SetPresenter implements SetPresenterInterface
     @Override
     public void onGetResult(String province, String city, String district, String detailAddress, LatLng nowLatLng) {
 
-        locationMob = new LocationMob(province,city,district,detailAddress,nowLatLng);
+
+
+
+
+    }
+
+    @Override
+    public void onProjectSelectDone(ProjectInfo projectInfo) {
+        locationMob = projectInfo.getLocationMob();
         //todo : 得到地点之后去选择项目
-        projectSelectDialog.show();
+//        projectSelectDialog.show();
 
-
-
+        switch (pointEnum){
+            case START:
+                setViewInterface.setStartPoint(locationMob);
+                break;
+            case DESTINATION:
+                setViewInterface.setDetinationPoint(locationMob);
+                break;
+            case MIDDLE:
+                setViewInterface.addMiddlePoint(locationMob);
+                break;
+        }
     }
 }

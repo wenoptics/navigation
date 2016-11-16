@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="projects">
+        <item>美食</item>
+        <item>旅游</item>
+        <item>出行</item>
+        <item>酒店</item>
+    </string-array>
+</resources>

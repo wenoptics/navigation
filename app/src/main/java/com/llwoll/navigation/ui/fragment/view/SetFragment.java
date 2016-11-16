@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
-import com.llwoll.navigation.MainActivity;
 import com.llwoll.navigation.NaviApplication;
 import com.llwoll.navigation.R;
 import com.llwoll.navigation.data.model.LocationMob;
@@ -204,7 +203,7 @@ public class SetFragment extends Fragment  implements SetViewInterface,
         return getActivity();
     }
 
-    @Override
+
     public void showMsg(String msg) {
         Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
     }
