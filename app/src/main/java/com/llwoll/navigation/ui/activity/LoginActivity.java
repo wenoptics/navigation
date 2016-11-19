@@ -12,6 +12,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 import com.llwoll.navigation.NaviApplication;
 import com.llwoll.navigation.R;
+import com.llwoll.navigation.data.model.NaviUser;
 import com.llwoll.navigation.ui.activity.module.LoginActivityModule;
 import com.llwoll.navigation.ui.activity.presenter.LoginActivityPresenter;
 
@@ -39,6 +40,9 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.register)
     Button register;
 
+    @Bind(R.id.old_user)
+    Button old_user;
+
 //    这种注入方式需要手动注入进来,在这里复写setupActivityComponent方法
     @Inject
     LoginActivityPresenter loginActivityPresenter;
@@ -50,6 +54,13 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
+        NaviUser user = NaviUser.getCurrentUser(this,NaviUser.class);
+        if (user!=null){
+            username.setText(user.getUsername());
+            old_user.setVisibility(View.VISIBLE);
+        }
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +114,11 @@ public class LoginActivity extends BaseActivity {
             loginActivityPresenter.onLoginClick();
     }
 
+    @OnClick(R.id.old_user)
+    public void skip(){
+        intent(FrontActivity.class);
+    }
+
     /*
         将注册逻辑放在presenter 里面实现
      */
@@ -126,8 +142,8 @@ public class LoginActivity extends BaseActivity {
     /*
         页面跳转逻辑放在这里
      */
-    public void intentMap(){
-        Intent intent = new Intent(LoginActivity.this,MapActivity.class);
+    public void intent(Class cls){
+        Intent intent = new Intent(LoginActivity.this,cls);
         startActivity(intent);
     }
 

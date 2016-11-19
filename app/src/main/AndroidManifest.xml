@@ -29,25 +29,20 @@
 
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.activity.MapActivity" />
         <activity
             android:name=".ui.activity.LoginActivity"
             android:windowSoftInputMode="stateHidden">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
-        <activity android:name=".ui.activity.ProjectSelectActivity">
-
-
-        </activity>
-
+        <activity android:name=".ui.activity.ProjectSelectActivity" />
+        <activity android:name=".ui.activity.FrontActivity" />
+        <activity android:name=".ui.activity.ProjectManagerActivity"></activity>
     </application>
 
 </manifest>

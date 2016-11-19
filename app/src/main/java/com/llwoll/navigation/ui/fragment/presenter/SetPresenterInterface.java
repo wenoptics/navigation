@@ -1,6 +1,6 @@
 package com.llwoll.navigation.ui.fragment.presenter;
 
-import com.llwoll.navigation.data.model.LocationMob;
+import com.llwoll.navigation.data.info.ProjectInfo;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ public interface SetPresenterInterface {
     /*
         缓存数据
      */
-    public void setHistory(List<LocationMob> lcoations);
-    public void setMiddlePoints(List<LocationMob> lcoations);
+    public void setHistory(List<ProjectInfo> lcoations);
+    public void setMiddlePoints(List<ProjectInfo> lcoations);
 
 
     public void onResume();

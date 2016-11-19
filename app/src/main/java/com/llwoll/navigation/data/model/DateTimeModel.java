@@ -1,9 +1,11 @@
 package com.llwoll.navigation.data.model;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by Halley on 16/11/8.
  */
-public class DateTimeModel {
+public class DateTimeModel extends BmobObject{
 
     private int year;
     private int monthOfYear;

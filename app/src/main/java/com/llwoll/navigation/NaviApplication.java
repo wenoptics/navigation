@@ -6,6 +6,7 @@ import android.content.Context;
 import com.baidu.mapapi.SDKInitializer;
 import com.llwoll.navigation.data.UserComponent;
 import com.llwoll.navigation.data.api.UserModule;
+import com.llwoll.navigation.data.info.ProjectPathManager;
 
 import cn.bmob.v3.Bmob;
 
@@ -24,6 +25,9 @@ public class NaviApplication extends Application {
         Bmob.initialize(this, "183b74ccc028dd5497eff3b19c154fe5");
         SDKInitializer.initialize(getApplicationContext());
         initAppComponent();
+
+        // init bmob objects
+        ProjectPathManager.getInstance().init(this);
     }
 
     public static NaviApplication get(Context context){
@@ -50,6 +54,10 @@ public class NaviApplication extends Application {
         用户登录之后将 用户信息放在DI 容器中
      */
     public UserComponent createUserComponent(UserModule userModule){
+
+        //update user information
+        ProjectPathManager.getInstance().init(this);
+
         userComponent = appComponent.plus(userModule);
         return userComponent;
     }

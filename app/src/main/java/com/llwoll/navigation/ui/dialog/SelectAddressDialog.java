@@ -235,12 +235,21 @@ public class SelectAddressDialog extends Dialog implements View.OnClickListener,
                 /**
                  * 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
                  */
-
+                if (mSuggestionSearch!=null){
                 mSuggestionSearch
                         .requestSuggestion((new SuggestionSearchOption())
                                 .keyword(detail_address.getText().toString()).city(mCurrentCityName));
+                }else {
+                    Toast.makeText(context,"mGeoSearch is distoryed",Toast.LENGTH_SHORT).show();
+                }
+
                 //获取经纬度;
-                mGeoSearch.geocode(new GeoCodeOption().city(mCurrentCityName).address(detail_address.getText().toString()));
+                if (mGeoSearch!=null){
+                    mGeoSearch.geocode(new GeoCodeOption().city(mCurrentCityName).address(detail_address.getText().toString()));
+                }else {
+                    Toast.makeText(context,"mGeoSearch is distoryed",Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }

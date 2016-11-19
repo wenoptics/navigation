@@ -5,6 +5,7 @@ import android.widget.Toast;
 import com.llwoll.navigation.NaviApplication;
 import com.llwoll.navigation.data.api.UserModule;
 import com.llwoll.navigation.data.model.NaviUser;
+import com.llwoll.navigation.ui.activity.FrontActivity;
 import com.llwoll.navigation.ui.activity.LoginActivity;
 import com.llwoll.navigation.utils.Validator;
 
@@ -43,8 +44,10 @@ public class LoginActivityPresenter {
 
                     NaviApplication.get(loginActivity.getApplicationContext())
                             .createUserComponent(new UserModule(naviUser));
+
+
                     Toast.makeText(loginActivity,"login success",Toast.LENGTH_SHORT).show();
-                    loginActivity.intentMap();
+                    loginActivity.intent(FrontActivity.class);
                 }
 
                 @Override
@@ -64,6 +67,7 @@ public class LoginActivityPresenter {
             final NaviUser naviUser = new NaviUser();
             naviUser.setUsername(username);
             naviUser.setPassword(password);
+            naviUser.setCustom("...");
 
             naviUser.signUp(loginActivity, new SaveListener() {
                 @Override

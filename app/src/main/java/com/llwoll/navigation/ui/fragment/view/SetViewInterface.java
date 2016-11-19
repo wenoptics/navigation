@@ -2,7 +2,7 @@ package com.llwoll.navigation.ui.fragment.view;
 
 import android.content.Context;
 
-import com.llwoll.navigation.data.model.LocationMob;
+import com.llwoll.navigation.data.info.ProjectInfo;
 
 import java.util.List;
 
@@ -11,12 +11,12 @@ import java.util.List;
  */
 public interface SetViewInterface {
 
-    public void setHistory(List<LocationMob> lcoations);
-    public void setMiddlePoints(List<LocationMob> lcoations);
+    public void setHistory(List<ProjectInfo> projectInfos);
+    public void setMiddlePoints(List<ProjectInfo> projectInfos);
 
-    public void setStartPoint(LocationMob startPoint);
-    public void setDetinationPoint(LocationMob detinationPoint);
-    public void addMiddlePoint(LocationMob middlePoint);
+    public void setStartPoint(ProjectInfo projectInfo);
+    public void setDetinationPoint(ProjectInfo projectInfo);
+    public void addMiddlePoint(ProjectInfo projectInfo);
 
     public Context getContext();
 

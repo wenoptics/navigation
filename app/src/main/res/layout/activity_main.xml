@@ -56,6 +56,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             >
+            <Button
+                android:visibility="invisible"
+                android:id="@+id/old_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="使用旧账户"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                />
+
 
             <Button
                 android:id="@+id/register"

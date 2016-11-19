@@ -69,17 +69,17 @@ public class SetPresenter implements SetPresenterInterface
     public void onGetProject(ProjectModule projectModule) {
 
 
-        switch (pointEnum){
-            case START:
-                setViewInterface.setStartPoint(locationMob);
-                break;
-            case DESTINATION:
-                setViewInterface.setDetinationPoint(locationMob);
-                break;
-            case MIDDLE:
-                setViewInterface.addMiddlePoint(locationMob);
-                break;
-        }
+//        switch (pointEnum){
+//            case START:
+//                setViewInterface.setStartPoint(locationMob);
+//                break;
+//            case DESTINATION:
+//                setViewInterface.setDetinationPoint(locationMob);
+//                break;
+//            case MIDDLE:
+//                setViewInterface.addMiddlePoint(locationMob);
+//                break;
+//        }
 
     }
 
@@ -128,12 +128,13 @@ public class SetPresenter implements SetPresenterInterface
 
     // 缓存数据
     @Override
-    public void setHistory(List<LocationMob> lcoations) {
+    public void setHistory(List<ProjectInfo> lcoations) {
 
     }
+
     // 缓存数据
     @Override
-    public void setMiddlePoints(List<LocationMob> lcoations) {
+    public void setMiddlePoints(List<ProjectInfo> lcoations) {
 
     }
 
@@ -165,13 +166,13 @@ public class SetPresenter implements SetPresenterInterface
 
         switch (pointEnum){
             case START:
-                setViewInterface.setStartPoint(locationMob);
+                setViewInterface.setStartPoint(projectInfo);
                 break;
             case DESTINATION:
-                setViewInterface.setDetinationPoint(locationMob);
+                setViewInterface.setDetinationPoint(projectInfo);
                 break;
             case MIDDLE:
-                setViewInterface.addMiddlePoint(locationMob);
+                setViewInterface.addMiddlePoint(projectInfo);
                 break;
         }
     }

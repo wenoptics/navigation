@@ -1,5 +1,6 @@
 package com.llwoll.navigation.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.llwoll.navigation.R;
+import com.llwoll.navigation.data.info.ProjectPathManager;
 import com.llwoll.navigation.data.model.LocationMob;
 import com.llwoll.navigation.ui.fragment.view.SetFragment;
 
@@ -58,6 +60,8 @@ public class MapActivity extends BaseActivity implements OnGetRoutePlanResultLis
 
     RoutePlanSearch routePlanSearch;
 
+    int position = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -65,10 +69,21 @@ public class MapActivity extends BaseActivity implements OnGetRoutePlanResultLis
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
 
-//        if (setFragment.)
+        Intent intent = getIntent();
+        if (intent!=null){
+             position = intent.getIntExtra("projectinfoname",-1);
+        }
+
+
+        if (position >= 0){
+            ProjectPathManager manager = ProjectPathManager.getInstance();
+            initRouteSearch();
+            startNavigation(manager.getProjectPathInfo(position).getLocationMobs());
+            return;
+        }
+
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.dialog_root_show_amin, R.anim.dialog_root_hide_amin);
-
         newFragment = new  SetFragment();
         fragmentTransaction.replace(R.id.setFragment, newFragment, "create path");
         fragmentTransaction.addToBackStack(null);
@@ -114,10 +129,10 @@ public class MapActivity extends BaseActivity implements OnGetRoutePlanResultLis
         LocationMob start = locationMobs.get(0);
         PlanNode startPlanNode =  PlanNode.withLocation(new LatLng(start.getLatitude(),start.getLongitude()));
 
-        locationMobs.remove(0);
+//        locationMobs.remove(0);
         LocationMob end   = locationMobs.get(locationMobs.size() - 1);
         PlanNode endPlanNode =  PlanNode.withLocation(new LatLng(end.getLatitude(), end.getLongitude()));
-        locationMobs.remove(locationMobs.size() - 1);
+//        locationMobs.remove(locationMobs.size() - 1);
 
 
         List<PlanNode> middlePath = new ArrayList<>();

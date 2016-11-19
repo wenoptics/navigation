@@ -15,10 +15,19 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/pathname"
+        android:layout_marginLeft="20dp"
+        android:hint="请输入路线标示"
+        android:layout_below="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <EditText
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:id="@+id/start"
-        android:layout_below="@+id/text"
+        android:layout_below="@id/pathname"
         android:hint="@string/start_point"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,11 @@ import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 import com.llwoll.navigation.NaviApplication;
 import com.llwoll.navigation.R;
+import com.llwoll.navigation.data.info.ProjectInfo;
+import com.llwoll.navigation.data.info.ProjectPathInfo;
+import com.llwoll.navigation.data.info.ProjectPathManager;
 import com.llwoll.navigation.data.model.LocationMob;
+import com.llwoll.navigation.data.model.NaviUser;
 import com.llwoll.navigation.ui.adapter.PointsAdapter;
 import com.llwoll.navigation.ui.fragment.module.SetFragmentModule;
 import com.llwoll.navigation.ui.fragment.presenter.SetPresenter;
@@ -34,6 +39,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.listener.SaveListener;
 
 
 /**
@@ -47,6 +53,9 @@ public class SetFragment extends Fragment  implements SetViewInterface,
 
 
 
+    @Bind(R.id.pathname)
+    EditText pathname;
+
     @Bind(R.id.start)
     EditText start;
     @Bind(R.id.destination)
@@ -59,7 +68,6 @@ public class SetFragment extends Fragment  implements SetViewInterface,
 
     @Bind(R.id.addMiddle)
     Button addMiddle;
-
 
     /*
         需要dagger注入
@@ -75,6 +83,12 @@ public class SetFragment extends Fragment  implements SetViewInterface,
     LocationMob startMob = null;
     LocationMob detinationMob = null;
     List<LocationMob> middleMob = new ArrayList<>();
+
+    List<ProjectInfo> allProjectInfos = new ArrayList<>();
+    ProjectInfo startProjectInfo = null;
+    ProjectInfo detinationProjectInfo = null;
+    List<ProjectInfo> middleProjectInfos = new ArrayList<>();
+
 
     DatePickerDialog datePickerDialog = null;
     TimePickerDialog timePickerDialog = null;
@@ -151,36 +165,13 @@ public class SetFragment extends Fragment  implements SetViewInterface,
     }
 
     /*
-            设置历史数据
-    */
-    @Override
-    public void setHistory(List<LocationMob> locationMobs) {
-        if (locationMobs == null) return;
-        historyAdapter.setLocationMobs(locationMobs);
-    }
-
-    @Override
-    public void addMiddlePoint(LocationMob middlePoint) {
-        if (middlePoint == null) return;
-        middleAdapter.add(middlePoint);
-    }
-
-    /*
-        设置中间点
-     */
-    @Override
-    public void setMiddlePoints(List<LocationMob> locationMobs) {
-        if (setPresenter!=null){
-            setPresenter.setMiddlePoints(locationMobs);
-        }
-    }
-    /*
         设置起点
      */
     @Override
-    public void setStartPoint(LocationMob startPoint) {
+    public void setStartPoint(ProjectInfo projectInfo) {
+        startProjectInfo = projectInfo;
         //设置第一个点
-
+        LocationMob startPoint = projectInfo.getLocationMob();
         if (startPoint == null )return;
         startMob = startPoint;
 //        startPoint.getProvince() + ","+startPoint.getCity()+
@@ -188,7 +179,9 @@ public class SetFragment extends Fragment  implements SetViewInterface,
     }
 
     @Override
-    public void setDetinationPoint(LocationMob detinationPoint) {
+    public void setDetinationPoint(ProjectInfo projectInfo) {
+        detinationProjectInfo = projectInfo;
+        LocationMob detinationPoint = projectInfo.getLocationMob();
         //设置目的点
         if (detinationPoint == null) return;
         detinationMob = detinationPoint;
@@ -196,7 +189,27 @@ public class SetFragment extends Fragment  implements SetViewInterface,
     }
 
 
+    @Override
+    public void setHistory(List<ProjectInfo> projectInfos) {
+//        if (locationMobs == null) return;
+//        historyAdapter.setLocationMobs(locationMobs);
+    }
 
+    @Override
+    public void setMiddlePoints(List<ProjectInfo> projectInfos) {
+        if (projectInfos!=null){
+            setPresenter.setMiddlePoints(projectInfos);
+        }
+
+    }
+
+    @Override
+    public void addMiddlePoint(ProjectInfo projectInfo) {
+        if (projectInfo == null) return;
+        middleProjectInfos.add(projectInfo);
+        LocationMob middlePoint = projectInfo.getLocationMob();
+        middleAdapter.add(middlePoint);
+    }
 
     @Override
     public Context getContext() {
@@ -210,25 +223,62 @@ public class SetFragment extends Fragment  implements SetViewInterface,
 
 
     public List<LocationMob> getPath(){
+        allProjectInfos.clear();
         path.clear();
         if (startMob != null){
+            allProjectInfos.add(startProjectInfo);
             path.add(startMob);
             startMob = null;
         }else {
             showMsg("请添加起始点");
             return null;
         }
-
+        allProjectInfos.addAll(middleProjectInfos);
         path.addAll(middleAdapter.getLocationMob());
         middleAdapter.reset();
 
         if (detinationMob!=null){
+            allProjectInfos.add(detinationProjectInfo);
             path.add(detinationMob);
             detinationMob = null;
         }else {
             showMsg("请添加终点");
             return null;
         }
+
+        String name = pathname.getText().toString();
+        if (name==""){
+            showMsg("请输入路径名称");
+            return null;
+        }
+
+        ProjectPathInfo projectPathInfo = new ProjectPathInfo();
+        NaviUser user = (NaviUser) NaviUser.getCurrentUser(getContext(),NaviUser.class);
+
+        projectPathInfo.setName(name);
+        projectPathInfo.setOwner(user);
+
+        // update to cloud
+        projectPathInfo.addAll("projectInfos",allProjectInfos);
+        projectPathInfo.addAll("locationMobs",path);
+        // save to nei cun
+        projectPathInfo.setProjectInfos(allProjectInfos);
+        projectPathInfo.setLocationMobs(path);
+
+        projectPathInfo.save(getContext(), new SaveListener() {
+            @Override
+            public void onSuccess() {
+                Log.v("ss","ss");
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Log.v("ss","ss");
+            }
+        });
+
+        ProjectPathManager.getInstance().addProjectPathInfo(projectPathInfo);
+
         return path;
     }
 
