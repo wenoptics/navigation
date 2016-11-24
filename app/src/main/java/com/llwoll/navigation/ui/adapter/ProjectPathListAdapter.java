@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.llwoll.navigation.R;
@@ -34,6 +34,12 @@ public class ProjectPathListAdapter extends BaseAdapter {
         this.context = context;
         this.selectListener = onProjectPathItemSelectListener;
 //        notifyDataSetChanged();
+    }
+
+    public void update(List<ProjectPathInfo> projectPathInfos){
+        this.projectPathInfos.clear();
+        this.projectPathInfos.addAll(projectPathInfos);
+        notifyDataSetChanged();
     }
 
 
@@ -74,7 +80,9 @@ public class ProjectPathListAdapter extends BaseAdapter {
 
 
         TextView name = (TextView) convertView.findViewById(R.id.pathname);
-        LinearLayout info_layout = (LinearLayout) convertView.findViewById(R.id.info_layout);
+        Button select_btn = (Button) convertView.findViewById(R.id.select_project);
+        Button delete_btn = (Button) convertView.findViewById(R.id.delete);
+
 
         final ProjectPathInfo info = (ProjectPathInfo) getItem(position);
         name.setText("线路名称: "+info.getName());
@@ -85,11 +93,19 @@ public class ProjectPathListAdapter extends BaseAdapter {
             name.append("\n"+"第"+i+"站:  "+projectInfos.get(i).getHotelInfo().name);
         }
 
-        info_layout.setOnClickListener(new View.OnClickListener() {
+        select_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (selectListener!=null){
                     selectListener.onProjectPathItemSelectListener(info,position);
+                }
+            }
+        });
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectListener!=null){
+                    selectListener.onProjectPathItemDeleteListener(info,position);
                 }
             }
         });
@@ -99,6 +115,7 @@ public class ProjectPathListAdapter extends BaseAdapter {
 
     public interface OnProjectPathItemSelectListener{
         public void  onProjectPathItemSelectListener(ProjectPathInfo info,int position);
+        public void  onProjectPathItemDeleteListener(ProjectPathInfo info,int position);
     }
 
 

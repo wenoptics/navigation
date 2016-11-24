@@ -64,6 +64,8 @@ public class FrontActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(context,AboutActivity.class);
+                context.startActivity(intent);
             }
         });
 

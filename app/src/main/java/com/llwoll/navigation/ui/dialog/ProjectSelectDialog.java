@@ -68,6 +68,8 @@ public class ProjectSelectDialog extends Dialog implements DatePickerDialog.OnDa
 
     OnProjectSelectDone onProjectSelectDone;
 
+    ProjectAdapter projectAdapter;
+
     public ProjectSelectDialog(Context context) {
         super(context, android.R.style.Theme_Translucent);
 //        super(context);
@@ -85,7 +87,9 @@ public class ProjectSelectDialog extends Dialog implements DatePickerDialog.OnDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_select);
         ButterKnife.bind(this);
-        listView.setAdapter(new ProjectAdapter(context,this));
+
+        projectAdapter = new ProjectAdapter(context,this);
+        listView.setAdapter(projectAdapter);
 
         initDateAndTimeAndAddress();
         initListener();
@@ -142,6 +146,7 @@ public class ProjectSelectDialog extends Dialog implements DatePickerDialog.OnDa
         selectAddressDialog = new SelectAddressDialog(context,this);
         select_item.setOnItemSelectedListener(this);
 
+
     }
 
 
@@ -173,7 +178,11 @@ public class ProjectSelectDialog extends Dialog implements DatePickerDialog.OnDa
 
         Resources res =context.getResources();
         String[] languages = res.getStringArray(R.array.projects);
-        projectInfo.setProjectName(languages[position]);
+        String project = languages[position];
+        if (project!= null){
+            projectAdapter.chenge(project);
+            projectInfo.setProjectName(project);
+        }
 
         Toast.makeText(context,languages[position],Toast.LENGTH_SHORT).show();
     }

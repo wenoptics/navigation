@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.llwoll.navigation.utils.ContentJsonUtils.getHotels;
+
 /**
  * Created by Halley on 16/11/14.
  */
@@ -29,15 +31,38 @@ public class ProjectAdapter extends BaseAdapter {
     OnItemSelectListener selectListener = null;
 
     public ProjectAdapter(Context context){
-        hotelInfos = ContentJsonUtils.getEats(null);
+        hotelInfos = getHotels(null);
         this.context = context;
     }
     public ProjectAdapter(Context context,OnItemSelectListener selectListener){
-        hotelInfos = ContentJsonUtils.getEats(null);
+        hotelInfos = getHotels(null);
         this.context = context;
         this.selectListener = selectListener;
     }
 
+    public  void chenge(String project){
+
+
+        switch (project){
+            case "旅游":
+
+//                break;
+            case "美食":
+                hotelInfos.clear();
+                hotelInfos.addAll(ContentJsonUtils.getEates(null));
+                notifyDataSetChanged();
+                break;
+
+            case "出行":
+
+            case "酒店":
+                hotelInfos.clear();
+                hotelInfos.addAll(ContentJsonUtils.getHotels(null));
+                notifyDataSetChanged();
+                break;
+        }
+
+    }
 
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {

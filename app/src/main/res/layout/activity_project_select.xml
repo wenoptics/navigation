@@ -35,13 +35,18 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
 
+        <!--android:background="@color/white"-->
+        <!--style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"-->
         <Spinner
+
+            style="@style/AppTheme..DropDown.Style"
+
             android:layout_weight="1"
             android:id="@+id/select_item"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:entries="@array/projects"
-            />
+            android:popupBackground="@color/primary" />
 
     </LinearLayout>
 

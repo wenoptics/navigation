@@ -19,7 +19,7 @@
     <application
         android:name=".NaviApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/navi_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -42,7 +42,8 @@
         </activity>
         <activity android:name=".ui.activity.ProjectSelectActivity" />
         <activity android:name=".ui.activity.FrontActivity" />
-        <activity android:name=".ui.activity.ProjectManagerActivity"></activity>
+        <activity android:name=".ui.activity.ProjectManagerActivity" />
+        <activity android:name=".ui.activity.AboutActivity"></activity>
     </application>
 
 </manifest>

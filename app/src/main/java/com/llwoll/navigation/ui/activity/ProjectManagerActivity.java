@@ -15,11 +15,14 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.bmob.v3.listener.DeleteListener;
+
 
 public class ProjectManagerActivity extends AppCompatActivity implements ProjectPathListAdapter.OnProjectPathItemSelectListener {
 
     @Bind(R.id.projects)
     ListView projects;
+    ProjectPathListAdapter projectPathListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class ProjectManagerActivity extends AppCompatActivity implements Project
         ButterKnife.bind(this);
 
         List<ProjectPathInfo> projectPathInfos = ProjectPathManager.getInstance().getProjectPathInfos();
-        ProjectPathListAdapter projectPathListAdapter = new ProjectPathListAdapter(this,projectPathInfos,this);
+        projectPathListAdapter = new ProjectPathListAdapter(this,projectPathInfos,this);
         projects.setAdapter(projectPathListAdapter);
 
 
@@ -44,6 +47,40 @@ public class ProjectManagerActivity extends AppCompatActivity implements Project
         intent.putExtra("projectinfoname",position);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onProjectPathItemDeleteListener(ProjectPathInfo info, int position) {
+
+        // delete local
+        ProjectPathManager.getInstance().deleteProjectPathInfo(position);
+
+        //delete cloud
+        final ProjectPathInfo p2 = new ProjectPathInfo();
+        p2.setObjectId(info.getObjectId());
+        p2.delete(this,new DeleteListener() {
+
+            @Override
+            public void onSuccess() {
+                toast("删除成功:"+p2.getUpdatedAt());
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                toast("删除失败：" +i +"   "+ s);
+            }
+
+        });
+
+        //update adapter
+        List<ProjectPathInfo> projectPathInfos = ProjectPathManager.getInstance().getProjectPathInfos();
+        projectPathListAdapter.update(projectPathInfos);
+
+
+    }
+
+    public  void toast(String str){
+        Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -20,7 +20,7 @@ public class ExampleUnitTest {
     public void test(){
 
 
-        ContentJsonUtils.getEats("");
+        ContentJsonUtils.getEates("");
 
 //        try{
 

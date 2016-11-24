@@ -19,7 +19,7 @@ import java.util.List;
 public class ContentJsonUtils {
 
 
-    public static List<HotelInfo>  getEats (String eatinfo) {
+    public static List<HotelInfo>  getHotels (String eatinfo) {
 
         if ((eatinfo == "")||(eatinfo == null)){
             eatinfo = ContentContants.HOTELSJSON;
@@ -56,14 +56,42 @@ public class ContentJsonUtils {
                 hotelInfos.add(info);
 
             }
-//            JSONObject jjb = j.getJSONObject(1);
-//            jsonArray = new JSONArray(ContentContants.HOTELSJSON);
-//            JSONArray jsonArray2  = (JSONArray) jsonArray.get(13);
-//            String a = jsonArray2.get(0).toString();
-
-//            content.setText(a);
-//        System.out.print(jsonArray.get(0).toString());
             Log.d("json 1", jb.toString());
+
+        }catch (JSONException ex){
+            ex.toString();
+        }
+        return hotelInfos;
+    }
+
+
+    public static List<HotelInfo>  getEates (String eatinfo) {
+
+        if ((eatinfo == "")||(eatinfo == null)){
+            eatinfo = ContentContants.EATEJSON;
+        }
+
+
+        List<HotelInfo> hotelInfos = new ArrayList<>();
+        try{
+            JSONObject jb = new JSONObject(eatinfo).getJSONObject("SearchPageViewModel");
+            JSONArray j = jb.getJSONArray("Restaurants");
+
+            for (int i = 0; i <j.length() ; i++) {
+                JSONObject jjb = j.getJSONObject(i);
+                HotelInfo info = new HotelInfo();
+                info.name = jjb.getString("Name");
+                info.biglog = jjb.getString("ImageUrl");
+//                info.logo  =  jjb.getJSONObject().getString("logo");
+                JSONObject ja = jjb.getJSONObject("GGCoord");
+
+                    info.langtitude = ja.getDouble("Lng");
+                    info.latitude = ja.getDouble("Lat");
+
+                info.price  = jjb.getInt("AveragePrice");
+                hotelInfos.add(info);
+            }
+//            Log.d("json 1", jb.toString());
 
         }catch (JSONException ex){
             ex.toString();
