@@ -98,5 +98,35 @@ public class ContentJsonUtils {
         }
         return hotelInfos;
     }
+    public static List<HotelInfo>  getTour (String tourInfo) {
+
+        if ((tourInfo == "")||(tourInfo == null)){
+            tourInfo = ContentContants.tourJson;
+        }
+
+
+        List<HotelInfo> hotelInfos = new ArrayList<>();
+        try{
+            JSONObject jb = new JSONObject(tourInfo).getJSONObject("SshProductSearchListResponse");
+            JSONArray j = jb.getJSONArray("ProductList");
+
+            for (int i = 0; i <j.length() ; i++) {
+                JSONObject jjb = j.getJSONObject(i);
+                HotelInfo info = new HotelInfo();
+                info.name = jjb.getString("SDPName");
+                info.biglog = jjb.getString("PictureUrl");
+
+                info.langtitude = jjb.getDouble("HotelLon");
+                info.latitude = jjb.getDouble("HotelLat");
+
+                info.price  = jjb.getInt("DefaultPrice");
+                hotelInfos.add(info);
+            }
+
+        }catch (JSONException ex){
+            ex.toString();
+        }
+        return hotelInfos;
+    }
 
 }

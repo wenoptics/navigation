@@ -1,6 +1,7 @@
 package com.llwoll.navigation.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.llwoll.navigation.R;
 import com.llwoll.navigation.data.info.ProjectInfo;
 import com.llwoll.navigation.data.info.ProjectPathInfo;
+import com.llwoll.navigation.ui.activity.ProjectInfoListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,7 @@ public class ProjectPathListAdapter extends BaseAdapter {
         TextView name = (TextView) convertView.findViewById(R.id.pathname);
         Button select_btn = (Button) convertView.findViewById(R.id.select_project);
         Button delete_btn = (Button) convertView.findViewById(R.id.delete);
+        Button setTransportBtn = (Button) convertView.findViewById(R.id.setTransportBtn);
 
 
         final ProjectPathInfo info = (ProjectPathInfo) getItem(position);
@@ -109,6 +112,18 @@ public class ProjectPathListAdapter extends BaseAdapter {
                 }
             }
         });
+        setTransportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // 更改交通信息
+                Intent intent = new Intent(context, ProjectInfoListActivity.class);
+                intent.putExtra("pathid",position);
+                context.startActivity(intent);
+
+            }
+        });
+
 
         return convertView;
     }

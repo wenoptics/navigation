@@ -43,7 +43,9 @@
         <activity android:name=".ui.activity.ProjectSelectActivity" />
         <activity android:name=".ui.activity.FrontActivity" />
         <activity android:name=".ui.activity.ProjectManagerActivity" />
-        <activity android:name=".ui.activity.AboutActivity"></activity>
+        <activity android:name=".ui.activity.AboutActivity" />
+        <activity android:name=".ui.activity.ProjectInfoListActivity" />
+        <activity android:name=".ui.activity.TransportSettingActivity"></activity>
     </application>
 
 </manifest>

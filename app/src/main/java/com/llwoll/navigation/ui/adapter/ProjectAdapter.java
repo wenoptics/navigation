@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.llwoll.navigation.R;
 import com.llwoll.navigation.data.info.HotelInfo;
+import com.llwoll.navigation.network.NetworkManager;
+import com.llwoll.navigation.network.ProjectEnum;
 import com.llwoll.navigation.utils.ContentJsonUtils;
 import com.squareup.picasso.Picasso;
 
@@ -23,12 +25,13 @@ import static com.llwoll.navigation.utils.ContentJsonUtils.getHotels;
 /**
  * Created by Halley on 16/11/14.
  */
-public class ProjectAdapter extends BaseAdapter {
+public class ProjectAdapter extends BaseAdapter implements NetworkManager.ResponseListenser {
 
 
     List<HotelInfo> hotelInfos = new ArrayList<>();
     Context context;
     OnItemSelectListener selectListener = null;
+
 
     public ProjectAdapter(Context context){
         hotelInfos = getHotels(null);
@@ -40,6 +43,41 @@ public class ProjectAdapter extends BaseAdapter {
         this.selectListener = selectListener;
     }
 
+
+
+
+    public  void changeHappenNeedUpdate(String project,String inDay,String outDay,String langtitude, String lat,String cityName,String fromCityName){
+
+
+        switch (project){
+            case "旅游":
+                if (cityName!=null){
+                    NetworkManager.requestTour(cityName,fromCityName,this);
+                }
+                break;
+            case "美食":
+                if ((langtitude!=null)&&(lat!=null)){
+                    NetworkManager.requestEats(langtitude,lat,this);
+                }
+//                hotelInfos.clear();
+//                hotelInfos.addAll(ContentJsonUtils.getEates(null));
+//                notifyDataSetChanged();
+                break;
+            case "出行":
+
+            case "酒店":
+
+                if ((inDay!=null)&&(outDay!=null)){
+                    NetworkManager.requestHotels(inDay,outDay,this);
+                }
+//                hotelInfos.clear();
+//                hotelInfos.addAll(ContentJsonUtils.getHotels(null));
+//                notifyDataSetChanged();
+                break;
+        }
+
+    }
+
     public  void chenge(String project){
 
 
@@ -48,6 +86,8 @@ public class ProjectAdapter extends BaseAdapter {
 
 //                break;
             case "美食":
+
+//              NetworkManager.requestEat();
                 hotelInfos.clear();
                 hotelInfos.addAll(ContentJsonUtils.getEates(null));
                 notifyDataSetChanged();
@@ -119,6 +159,31 @@ public class ProjectAdapter extends BaseAdapter {
 
 
         return convertView;
+    }
+
+    /*
+        从网络中获取到新的数据
+     */
+    @Override
+    public void OnGetResult(String result, ProjectEnum projectEnum) {
+
+        List<HotelInfo>  hotels = null;
+
+        switch (projectEnum){
+            case EATES:
+                hotels = ContentJsonUtils.getEates(result);
+                break;
+            case HOTELS:
+                hotels = ContentJsonUtils.getHotels(result);
+                break;
+            case TOUR:
+                hotels = ContentJsonUtils.getHotels(result);
+                break;
+        }
+//        List<HotelInfo>  hotels = ContentJsonUtils.getEates(result);
+        hotelInfos.clear();
+        hotelInfos.addAll(hotels);
+        notifyDataSetChanged();
     }
 
     public interface OnItemSelectListener{

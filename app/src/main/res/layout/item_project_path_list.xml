@@ -36,6 +36,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <Button
+            android:layout_alignParentRight="true"
+            android:id="@+id/setTransportBtn"
+            android:text="设置交通"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

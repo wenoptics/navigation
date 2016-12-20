@@ -17,6 +17,7 @@ public class ProjectInfo extends BmobObject{
     private HotelInfo hotelInfo;
 
 
+
     public ProjectInfo(){
 
     }

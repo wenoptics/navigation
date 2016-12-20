@@ -7,6 +7,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.llwoll.navigation.data.UserComponent;
 import com.llwoll.navigation.data.api.UserModule;
 import com.llwoll.navigation.data.info.ProjectPathManager;
+import com.llwoll.navigation.network.NetworkManager;
 
 import cn.bmob.v3.Bmob;
 
@@ -26,8 +27,11 @@ public class NaviApplication extends Application {
         SDKInitializer.initialize(getApplicationContext());
         initAppComponent();
 
+
         // init bmob objects
         ProjectPathManager.getInstance().init(this);
+
+        NetworkManager.init(this);
     }
 
     public static NaviApplication get(Context context){

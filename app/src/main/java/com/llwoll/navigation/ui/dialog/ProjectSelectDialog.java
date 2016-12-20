@@ -26,7 +26,9 @@ import com.llwoll.navigation.ui.adapter.ProjectAdapter;
 
 import org.json.JSONArray;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -157,6 +159,7 @@ public class ProjectSelectDialog extends Dialog implements DatePickerDialog.OnDa
         dateTimeModel.setMonthOfYear(monthOfYear);
         dateTimeModel.setDayOfMonth(dayOfMonth);
 
+
         Toast.makeText(context,"year:"+year+"  mouth:"+monthOfYear+"  day:"+dayOfMonth,Toast.LENGTH_SHORT).show();
 
     }
@@ -180,7 +183,36 @@ public class ProjectSelectDialog extends Dialog implements DatePickerDialog.OnDa
         String[] languages = res.getStringArray(R.array.projects);
         String project = languages[position];
         if (project!= null){
-            projectAdapter.chenge(project);
+//            projectAdapter.chenge(project);
+
+            LocationMob locationMob = null;
+            String inDay = null,outDay = null,cityName = null;
+
+            if ((projectInfo!=null)&&(projectInfo.getLocationMob()!=null)&&(dateTimeModel!=null)){
+                locationMob = projectInfo.getLocationMob();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(dateTimeModel.getYear(),dateTimeModel.getMonthOfYear(),dateTimeModel.getDayOfMonth());
+                Date inDate = calendar.getTime();
+                inDay = sdf.format(inDate);
+                calendar.add(Calendar.DAY_OF_MONTH,1);
+                Date outDate = calendar.getTime();
+                outDay = sdf.format(outDate);
+
+                cityName = locationMob.getCity();
+
+            }else {
+                Toast.makeText(context,"请注意填写好时间和地址信息",Toast.LENGTH_SHORT).show();
+            }
+
+            String longitude=null,latitude=null;
+            if (locationMob !=null){
+               longitude = String.valueOf(locationMob.getLongitude());
+               latitude = String.valueOf(locationMob.getLongitude());
+            }
+
+            projectAdapter.changeHappenNeedUpdate(project,inDay,outDay,longitude,latitude,cityName,null);
             projectInfo.setProjectName(project);
         }
 
