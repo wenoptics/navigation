@@ -111,5 +111,16 @@ public class ProjectPathManager {
         }else return null;
     }
 
+    public ProjectInfo getProjectInfo(int pathPosition,int projectPosition){
+
+        int len  = projectPathInfos.size();
+
+        if ((pathPosition >= 0)&&(pathPosition<len)){
+            List<ProjectInfo> projectInfos = projectPathInfos.get(pathPosition).getProjectInfos();
+            return  projectInfos.get(projectPosition);
+        }
+        return null;
+    }
+
 
 }

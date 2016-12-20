@@ -105,6 +105,57 @@ public class NetworkManager{
     }
 
 
+
+    public static void requestAirplay(String fromCityName,String toCityName, final ResponseListenser responseListenser){
+
+//        .add("cityName","无锡")
+//        .add("fromCityName","上海")
+        AndroidNetworking.post(Config.SEVERHOST+"/transport")
+                .addBodyParameter("fromCityName",fromCityName)
+                .addBodyParameter("toCityName",toCityName)
+                .build()
+                .getAsOkHttpResponseAndString(new OkHttpResponseAndStringRequestListener() {
+                    @Override
+                    public void onResponse(Response okHttpResponse, String response) {
+//                      System.out.println("the body is: \n"+response);
+                        responseListenser.OnGetResult(response,ProjectEnum.AIRPLAY);
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if (context !=null){
+                            Toast.makeText(context,"request error",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+
+    public static void requestTrain(String fromCityName,String toCityName, final ResponseListenser responseListenser){
+
+//        .add("cityName","无锡")
+//        .add("fromCityName","上海")
+        AndroidNetworking.post(Config.SEVERHOST+"/transport")
+                .addBodyParameter("fromCityName",fromCityName)
+                .addBodyParameter("toCityName",toCityName)
+                .build()
+                .getAsOkHttpResponseAndString(new OkHttpResponseAndStringRequestListener() {
+                    @Override
+                    public void onResponse(Response okHttpResponse, String response) {
+//                      System.out.println("the body is: \n"+response);
+                        responseListenser.OnGetResult(response,ProjectEnum.TRAIN);
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if (context !=null){
+                            Toast.makeText(context,"request error",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+
     public interface ResponseListenser{
 
         public void OnGetResult(String result,ProjectEnum projectEnum);

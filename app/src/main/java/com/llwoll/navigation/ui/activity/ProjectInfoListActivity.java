@@ -26,7 +26,8 @@ public class ProjectInfoListActivity extends AppCompatActivity {
         pathid = intent.getIntExtra("pathid",-1);
 
         if (pathid !=-1){
-             projectInfoAdapter = new ProjectInfoAdapter(this,pathid);
+            projectInfoAdapter = new ProjectInfoAdapter(this,pathid);
+            projectInfoList.setAdapter(projectInfoAdapter);
         }
 
 

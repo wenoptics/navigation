@@ -77,10 +77,12 @@ public class ProjectInfoAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
          LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-         convertView = layoutInflater.inflate(R.layout.item_project_path_list,parent,false);
+         convertView = layoutInflater.inflate(R.layout.item_project_info,parent,false);
 
 
-        TextView name = (TextView) convertView.findViewById(R.id.pathname);
+        ProjectInfo info = projectInfos.get(position);
+
+        TextView name = (TextView) convertView.findViewById(R.id.projectName);
         Button transportSetBtn = (Button) convertView.findViewById(R.id.transportSetBtn);
 //        Button delete_btn = (Button) convertView.findViewById(R.id.delete);
 //        Button setTransportBtn = (Button) convertView.findViewById(R.id.setTransportBtn);
@@ -95,43 +97,21 @@ public class ProjectInfoAdapter extends BaseAdapter {
 //            name.append("\n"+"第"+i+"站:  "+projectInfos.get(i).getHotelInfo().name);
 //        }
 
+        name.setText(info.getLocationMob().getCity()+"/"+ info.getHotelInfo().name);
         transportSetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 //设置交通信息
                 Intent intent = new Intent(context, TransportSettingActivity.class);
                 intent.putExtra("pathPosition",pathPosition);
                 intent.putExtra("projectPosition",position);
                 context.startActivity(intent);
-
-
             }
         });
 
 
         return convertView;
     }
-
-
-
-
-//
-//    @Override
-//    public int getItemViewType(int position) {
-//        return 0;
-//    }
-//
-//    @Override
-//    public int getViewTypeCount() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public boolean isEmpty() {
-//        return false;
-//    }
 
 
 }
