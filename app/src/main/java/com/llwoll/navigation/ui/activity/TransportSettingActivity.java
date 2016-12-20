@@ -22,6 +22,7 @@ import com.llwoll.navigation.utils.ContentJsonUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TransportSettingActivity extends AppCompatActivity implements View.OnClickListener, NetworkManager.ResponseListenser, TransportListAdapter.OnTranportItemSelectListener {
 
 
@@ -104,11 +105,17 @@ public class TransportSettingActivity extends AppCompatActivity implements View.
         switch (projectEnum){
             case AIRPLAY:
                 transportInfos =  ContentJsonUtils.getAirplay(result,startAddress,endAddress);
+                transportList.setAdapter(transportListAdapter);
                 transportListAdapter.update(transportInfos);
+                transportList.invalidateViews();
+
                 break;
             case TRAIN:
                 transportInfos = ContentJsonUtils.getTrain(result,startAddress,endAddress);
                 transportListAdapter.update(transportInfos);
+                transportList.setAdapter(transportListAdapter);
+                transportListAdapter.update(transportInfos);
+                transportList.invalidateViews();
                 break;
         }
         Toast.makeText(this,"get",Toast.LENGTH_SHORT).show();
