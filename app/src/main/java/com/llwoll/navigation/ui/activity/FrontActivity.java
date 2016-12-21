@@ -23,9 +23,6 @@ public class FrontActivity extends BaseActivity {
     @Bind(R.id.about)
     Button about;
 
-    @Bind(R.id.tuijian)
-    Button tuijian;
-
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +66,12 @@ public class FrontActivity extends BaseActivity {
             }
         });
 
-        tuijian.setOnClickListener(new View.OnClickListener() {
+        /*tuijian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
+        });*/
 
 
     }

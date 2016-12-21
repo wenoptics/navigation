@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_front"
     android:layout_width="match_parent"
@@ -14,41 +15,57 @@
     <Button
         android:id="@+id/lines"
         android:text="我的线路"
-        android:layout_margin="5dp"
         style="@style/Widget.AppCompat.Button"
-        android:background="#BA68C8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
 
-    <Button
-        android:layout_margin="5dp"
-        android:id="@+id/newline"
-        android:text="新建线路"
-        android:background="#BA68C8"
-        android:layout_below="@id/lines"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton3"
+        android:background="@drawable/mdtp_material_button_background"
+        android:padding="5dp"
+        android:layout_below="@+id/lines"
+        android:layout_alignLeft="@+id/lines"
+        android:layout_alignStart="@+id/lines"
+        android:src="@drawable/i1_s" />
 
     <Button
         android:id="@+id/about"
-        android:background="#BA68C8"
-        android:layout_margin="5dp"
-        android:layout_below="@id/newline"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="关于意航"
-        />
+        android:layout_alignBottom="@+id/imageButton3"
+        android:layout_toRightOf="@+id/imageButton3"
+        android:layout_toEndOf="@+id/imageButton3" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:background="@drawable/mdtp_material_button_background"
+        android:padding="9dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/i2_s"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/newline"
+        android:layout_alignStart="@+id/newline" />
 
     <Button
-        android:id="@+id/tuijian"
-        android:layout_margin="5dp"
-        android:background="#BA68C8"
-        android:layout_below="@id/about"
-        android:text="推荐"
+        android:id="@+id/newline"
+        android:text="新建线路"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/imageButton4"
+        android:layout_toRightOf="@+id/imageButton3"
+        android:layout_toEndOf="@+id/imageButton3"
+        android:layout_marginTop="8dp" />
 
 </RelativeLayout>
