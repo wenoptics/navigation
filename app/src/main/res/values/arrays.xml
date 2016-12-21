@@ -2,6 +2,7 @@
 <resources>
 
     <string-array name="projects">
+        <item>--</item>
         <item>美食</item>
         <item>旅游</item>
         <!--<item>出行</item>-->

@@ -83,15 +83,32 @@ public class TransportSettingActivity extends AppCompatActivity implements View.
         }
 
 
+
         switch (v.getId()){
             case  R.id.airplay:
 
-                NetworkManager.requestAirplay(startAddress,endAddress,this);
+
+                // todo : 演示用
+                if ((startAddress.equals("北京"))||(endAddress.equals("上海"))){
+                    OnGetResult("",ProjectEnum.AIRPLAY);
+                    Toast.makeText(this,"请填写地址信息",Toast.LENGTH_SHORT).show();
+                }else{
+                     NetworkManager.requestAirplay(startAddress,endAddress,this);
+                }
+
 
                 break;
             case  R.id.train:
 
-                NetworkManager.requestTrain(startAddress,endAddress,this);
+                // todo : 演示用
+                if ((startAddress.equals("上海"))||(endAddress.equals("无锡"))){
+                    OnGetResult("",ProjectEnum.TRAIN);
+                    Toast.makeText(this,"请填写地址信息",Toast.LENGTH_SHORT).show();
+                }else{
+                    NetworkManager.requestTrain(startAddress,endAddress,this);
+                }
+
+//                NetworkManager.requestTrain(startAddress,endAddress,this);
 
                 break;
         }

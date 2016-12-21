@@ -83,7 +83,13 @@ public class NetworkManager{
     public static void requestTour(String cityName,String fromCityName, final ResponseListenser responseListenser){
 
 //        .add("cityName","无锡")
-//        .add("fromCityName","上海")
+//        .add("fromCityName",上海")
+        if (cityName.contains("市")){
+            cityName.replace("市","");
+        }
+        if (fromCityName.contains("市")){
+            fromCityName.replace("市","");
+        }
         AndroidNetworking.post(Config.SEVERHOST+"/nearTour")
                 .addBodyParameter("cityName",cityName)
                 .addBodyParameter("fromCityName",fromCityName)
@@ -107,6 +113,14 @@ public class NetworkManager{
 
 
     public static void requestAirplay(String fromCityName,String toCityName, final ResponseListenser responseListenser){
+
+
+        if (toCityName.contains("市")){
+            toCityName.replace("市","");
+        }
+        if (fromCityName.contains("市")){
+            fromCityName.replace("市","");
+        }
 
 //        .add("cityName","无锡")
 //        .add("fromCityName","上海")
@@ -132,6 +146,9 @@ public class NetworkManager{
 
 
     public static void requestTrain(String fromCityName,String toCityName, final ResponseListenser responseListenser){
+
+
+
 
 //        .add("cityName","无锡")
 //        .add("fromCityName","上海")

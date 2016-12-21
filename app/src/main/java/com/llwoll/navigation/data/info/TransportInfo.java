@@ -10,7 +10,7 @@ public class TransportInfo extends BmobObject {
 
     private String startAddress;
     private String endAddress;
-    private int price;
+    private Double price;
     private String checi;
     private String date;
 
@@ -30,16 +30,16 @@ public class TransportInfo extends BmobObject {
         this.endAddress = endAddress;
     }
 
-    public int getPrice() {
+    public String getCheci() {
+        return checi;
+    }
+
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public String getCheci() {
-        return checi;
     }
 
     public void setCheci(String checi) {

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.llwoll.navigation.R;
+import com.llwoll.navigation.data.ContentContants;
 import com.llwoll.navigation.data.info.HotelInfo;
 import com.llwoll.navigation.network.NetworkManager;
 import com.llwoll.navigation.network.ProjectEnum;
@@ -46,33 +47,72 @@ public class ProjectAdapter extends BaseAdapter implements NetworkManager.Respon
 
 
 
-    public  void changeHappenNeedUpdate(String project,String inDay,String outDay,String langtitude, String lat,String cityName,String fromCityName){
+    public  void changeHappenNeedUpdate(String project,String inDay,String outDay,String langtitude,
+                                        String lat,
+                                        String cityName,
+                                        String fromCityName,
+                                        String detailAddress){
 
 
         switch (project){
             case "旅游":
+
+
+//                OnGetResult(ContentContants.tourJson,ProjectEnum.TOUR);
+
                 if (cityName!=null){
+
+//
+//                    else if (cityName.contains("上海")){
+//                        OnGetResult(ContentContants.WUXITOURINFO,ProjectEnum.TOUR);
+//                        break;
+//                    }
+                    //todo : 演示用代码
+                    if (cityName.contains("无锡")){
+                         OnGetResult(ContentContants.tourJson,ProjectEnum.TOUR);
+                         break;
+                    }
+//                    else
+//                    if (cityName.contains("北京")){
+//                        OnGetResult(Contants.BEIJINGTOUR,ProjectEnum.TOUR);
+//                        break;
+//                    }
+//                  else if (cityName.contains("苏州")){
+//                        OnGetResult(Contants.SUZHOUTOUR,ProjectEnum.TOUR);
+//                        break;
+//                    }
+
+
                     NetworkManager.requestTour(cityName,fromCityName,this);
                 }
                 break;
             case "美食":
-                if ((langtitude!=null)&&(lat!=null)){
+
+//                OnGetResult(ContentContants.EATEJSON,ProjectEnum.EATES);
+//                //todo : 演示用代码
+                if ((detailAddress!=null) && detailAddress.contains("顾村")){
+                    OnGetResult(ContentContants.EATEJSON,ProjectEnum.EATES);
+                }else if ((langtitude!=null)&&(lat!=null)){
                     NetworkManager.requestEats(langtitude,lat,this);
                 }
 //                hotelInfos.clear();
 //                hotelInfos.addAll(ContentJsonUtils.getEates(null));
 //                notifyDataSetChanged();
                 break;
-            case "出行":
 
             case "酒店":
 
-                if ((inDay!=null)&&(outDay!=null)){
+//                OnGetResult("",ProjectEnum.HOTELS);
+
+//                //todo : 演示用代码
+                if ((inDay!=null)&&(inDay.equals("2016-12-21"))){
+                    OnGetResult("",ProjectEnum.HOTELS);
+                }else if ((inDay!=null)&&(outDay!=null)){
                     NetworkManager.requestHotels(inDay,outDay,this);
                 }
-//                hotelInfos.clear();
-//                hotelInfos.addAll(ContentJsonUtils.getHotels(null));
-//                notifyDataSetChanged();
+                hotelInfos.clear();
+                hotelInfos.addAll(ContentJsonUtils.getHotels(null));
+                notifyDataSetChanged();
                 break;
         }
 
@@ -84,7 +124,7 @@ public class ProjectAdapter extends BaseAdapter implements NetworkManager.Respon
         switch (project){
             case "旅游":
 
-//                break;
+                break;
             case "美食":
 
 //              NetworkManager.requestEat();
@@ -92,8 +132,6 @@ public class ProjectAdapter extends BaseAdapter implements NetworkManager.Respon
                 hotelInfos.addAll(ContentJsonUtils.getEates(null));
                 notifyDataSetChanged();
                 break;
-
-            case "出行":
 
             case "酒店":
                 hotelInfos.clear();
@@ -177,7 +215,7 @@ public class ProjectAdapter extends BaseAdapter implements NetworkManager.Respon
                 hotels = ContentJsonUtils.getHotels(result);
                 break;
             case TOUR:
-                hotels = ContentJsonUtils.getHotels(result);
+                hotels = ContentJsonUtils.getTour(result);
                 break;
         }
 //        List<HotelInfo>  hotels = ContentJsonUtils.getEates(result);

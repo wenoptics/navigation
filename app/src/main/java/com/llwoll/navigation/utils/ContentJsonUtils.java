@@ -149,7 +149,7 @@ public class ContentJsonUtils {
 
                 info.setCheci(jjb.getString("flightNo"));
                 info.setDate(jjb.getString("dDate"));
-                info.setPrice(Integer.valueOf(jjb.getString("price")));
+                info.setPrice(Double.valueOf(jjb.getString("price")));
                 info.setStartAddress(startAddress);
                 info.setEndAddress(endAddress);
 
@@ -185,7 +185,7 @@ public class ContentJsonUtils {
 
                 JSONArray priceArray = jjb.getJSONArray("SeatList");
                 JSONObject priceObject = (JSONObject) priceArray.get(0);
-                info.setPrice(Integer.valueOf(priceObject.getString("SeatPrice")));
+                info.setPrice(Double.valueOf(priceObject.getString("SeatPrice")));
 
                 transportInfos.add(info);
             }

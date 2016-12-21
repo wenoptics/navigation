@@ -186,7 +186,7 @@ public class ProjectSelectDialog extends Dialog implements DatePickerDialog.OnDa
 //            projectAdapter.chenge(project);
 
             LocationMob locationMob = null;
-            String inDay = null,outDay = null,cityName = null;
+            String inDay = null,outDay = null,cityName = null,detailAddress = null;
 
             if ((projectInfo!=null)&&(projectInfo.getLocationMob()!=null)&&(dateTimeModel!=null)){
                 locationMob = projectInfo.getLocationMob();
@@ -201,6 +201,7 @@ public class ProjectSelectDialog extends Dialog implements DatePickerDialog.OnDa
                 outDay = sdf.format(outDate);
 
                 cityName = locationMob.getCity();
+                detailAddress = locationMob.getAddress();
 
             }else {
                 Toast.makeText(context,"请注意填写好时间和地址信息",Toast.LENGTH_SHORT).show();
@@ -212,7 +213,7 @@ public class ProjectSelectDialog extends Dialog implements DatePickerDialog.OnDa
                latitude = String.valueOf(locationMob.getLongitude());
             }
 
-            projectAdapter.changeHappenNeedUpdate(project,inDay,outDay,longitude,latitude,cityName,null);
+            projectAdapter.changeHappenNeedUpdate(project,inDay,outDay,longitude,latitude,cityName,null,detailAddress);
             projectInfo.setProjectName(project);
         }
 
