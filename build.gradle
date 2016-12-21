@@ -5,7 +5,13 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+//        classpath 'com.android.tools.build:gradle:2.2.3'
+
+        //fixme:  Noted that we use a lower version of gradle to build the project
+        //          to avoid the strange Error:Execution failed for task ':app:mergeDebugResources'.
+        //          but we will not be able to use neither Run nor Debug feature. Instead we can
+        //          directly gen the apk.
+        classpath 'com.android.tools.build:gradle:1.2.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 
         // NOTE: Do not place your application dependencies here; they belong
