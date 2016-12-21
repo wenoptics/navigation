@@ -9,7 +9,7 @@
     <string name="find_password">找回密码</string>
     <string name="snackbar_error_register_text">请输入正确的注册信息</string>
     <string name="snackbar_register_action">我知道了</string>
-    <string name="ablout">本系统是基于用户意图的导航系统。现阶段的导航系统已经能够很好的做到优化的路线规划，但是更加体现的是一种工具的身份。如果你去自由行旅游，难免需要另备一个小本子去进行线路的规划，需要综合考虑酒店，交通工具，时间点确定等一系列的优化问题。往往是旅游之后才发现更好的旅游路线。现在本系统不只是工具身份，将是你的人工智能私人助理。</string>
+    <string name="ablout">"   本系统是基于用户意图的导航系统。现阶段的导航系统已经能够很好的做到优化的路线规划，但是更加体现的是一种工具的身份。\n   如果你去自由行旅游，难免需要另备一个小本子去进行线路的规划，需要综合考虑酒店，交通工具，时间点确定等一系列的优化问题。往往是旅游之后才发现更好的旅游路线。\n   现在本系统不只是工具身份，将是你的人工智能私人助理。"</string>
 
 
     <string name="WUXITOURINFO">
